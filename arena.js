@@ -1,4 +1,5 @@
 class Arena {
+    static increment = 0
     constructor(mapData, cellSize){
         this.mapData = mapData;
         this.cellSize = cellSize;
@@ -13,6 +14,7 @@ class Arena {
             bot.row = this.mapData.startPoints[this.bots.length].row;
             bot.color = this.mapData.startPoints[this.bots.length].color; 
             bot.size = this.cellSize;
+            bot.name = bot.name + '#' + Arena.increment++
 
             this.bots.push(bot);
             return true;
@@ -44,10 +46,10 @@ class Arena {
         this.bots.forEach(bot => {
             if (!bot.alive) return
             const jsonMapData = JSON.stringify(this.mapData)
-            const clondeMap = JSON.parse(jsonMapData)
-            const jsonBotData = JSON.stringify(this.bots)
+            const clonedMap = JSON.parse(jsonMapData)
+            const jsonBotData = JSON.parse(JSON.stringify(this.bots))
             const clonedBots = bot.getNextMove(jsonBotData)
-            const move = bot.getNextMove(clondeMap, clonedBots);
+            const move = bot.getNextMove(clonedMap, clonedBots);
             // check the move is valid or not
             if (Math.abs(move.col - bot.col) + Math.abs(move.row - bot.row) > 1) return;
 

@@ -45,7 +45,6 @@ function setup(){
     generateDiamonds(mapData, 10);
 
     let nextMove = bot2.getNextMove(mapData, arena.bots);
-    console.log(nextMove);
 }
 
 function draw(){
