@@ -51,6 +51,7 @@ class Arena{
             // case 1: bot hits wall => destroyed
             if (bot.col < 0 || bot.col >= this.mapData.nCols || bot.row < 0 || bot.row >= this.mapData.nRows){
                 bot.alive = false;
+                bot.score = 0
             }
 
             // case 2: bot hits the other bot, both are destroyed
