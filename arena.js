@@ -1,4 +1,4 @@
-class Arena{
+class Arena {
     constructor(mapData, cellSize){
         this.mapData = mapData;
         this.cellSize = cellSize;
@@ -45,7 +45,9 @@ class Arena{
             if (!bot.alive) return
             const stringMapClone = JSON.stringify(this.mapData)
             const mapCloned = JSON.parse(stringMapClone)
-            const move = bot.getNextMove(mapCloned, this.bots);
+            const stringBots = JSON.stringify(this.bots)
+            const clonedBots = bot.getNextMove(stringBots)
+            const move = bot.getNextMove(mapCloned, clonedBots);
             // check the move is valid or not
             if (Math.abs(move.col - bot.col) + Math.abs(move.row - bot.row) > 1) return;
 
