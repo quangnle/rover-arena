@@ -43,11 +43,11 @@ class Arena {
 
         this.bots.forEach(bot => {
             if (!bot.alive) return
-            const stringMapClone = JSON.stringify(this.mapData)
-            const mapCloned = JSON.parse(stringMapClone)
-            const stringBots = JSON.stringify(this.bots)
-            const clonedBots = bot.getNextMove(stringBots)
-            const move = bot.getNextMove(mapCloned, clonedBots);
+            const jsonMapData = JSON.stringify(this.mapData)
+            const clondeMap = JSON.parse(jsonMapData)
+            const jsonBotData = JSON.stringify(this.bots)
+            const clonedBots = bot.getNextMove(jsonBotData)
+            const move = bot.getNextMove(clondeMap, clonedBots);
             // check the move is valid or not
             if (Math.abs(move.col - bot.col) + Math.abs(move.row - bot.row) > 1) return;
 
