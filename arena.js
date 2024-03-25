@@ -48,8 +48,7 @@ class Arena {
             const jsonMapData = JSON.stringify(this.mapData)
             const clonedMap = JSON.parse(jsonMapData)
             const jsonBotData = JSON.parse(JSON.stringify(this.bots))
-            const clonedBots = bot.getNextMove(jsonBotData)
-            const move = bot.getNextMove(clonedMap, clonedBots);
+            const move = bot.getNextMove(clonedMap, jsonBotData);
             // check the move is valid or not
             if (Math.abs(move.col - bot.col) + Math.abs(move.row - bot.row) > 1) return;
 
