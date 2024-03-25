@@ -7,9 +7,7 @@ class RedBot {
 
   getNextMove(mapData, bots) {
     let targetDiamond = { col: -1, row: -1 };
-    let minDistance = mapData.nCols + mapData.nRows;
     const diamonds = mapData.diamonds.map((diamond) => {
-      const distanceOtherDiamonds = [];
       let minDistanceOtherDiamond = null;
       let numberDiamondNear = 0;
       const distanceBot =
@@ -35,13 +33,11 @@ class RedBot {
               numberDiamondNear += 1;
             }
           }
-          distanceOtherDiamonds.push(distanceOtherDiamond);
         }
       }
       return {
         ...diamond,
         distanceBot,
-        distanceOtherDiamonds,
         numberDiamondNear,
         minDistanceOtherDiamond,
       };
