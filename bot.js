@@ -12,10 +12,35 @@ class Bot {
 
   draw() {
     const cellSize = this.size;
-    fill(this.color);
-    // only take 1st char of name to draw
-    textAlign(CENTER);
-    textSize(20);
-    text(this.name[0], this.col * cellSize + (cellSize >> 1), this.row * cellSize + (cellSize >> 1))
+        
+        push();
+        translate(this.col * cellSize + (cellSize >> 1),this.row * cellSize + (cellSize >> 1));
+        
+        //draw the face
+        fill(this.color);
+        rect(-cellSize/4, -cellSize/4, cellSize/2, cellSize/2, 3);
+        //draw the eyes
+        fill("#fff");
+        ellipse(-cellSize/8, -cellSize/8, cellSize/8, cellSize/8);
+        ellipse(cellSize/8, -cellSize/8, cellSize/8, cellSize/8);
+        //draw the pupils
+        fill("#000");
+        ellipse(-cellSize/10, -cellSize/10, cellSize/16, cellSize/16);
+        ellipse(cellSize/10, -cellSize/10, cellSize/16, cellSize/16);
+        //draw the nose
+        //draw the nose
+        fill("#f00");
+        triangle(0, -cellSize/16, -cellSize/16, cellSize/16, cellSize/16, cellSize/16);
+        //draw the mouth
+        fill("#fff");
+        rect(-cellSize/8, cellSize/8, cellSize/4, cellSize/16, 1);
+
+
+        //draw the name
+        fill(this.color);
+        textAlign(CENTER);
+        textSize(8);        
+        text(this.name[0] + (this.name[1] || '') + (this.name[2] || ''), 0, cellSize/4 + 8);
+        pop();
   }
 }
