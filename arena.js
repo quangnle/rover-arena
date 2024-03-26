@@ -1,4 +1,5 @@
 class Arena {
+    static increment = 0
     constructor(mapData, cellSize){
         this.mapData = mapData;
         this.cellSize = cellSize;
@@ -13,6 +14,7 @@ class Arena {
             bot.row = this.mapData.startPoints[this.bots.length].row;
             bot.color = this.mapData.startPoints[this.bots.length].color; 
             bot.size = this.cellSize;
+            bot.name = bot.name + '#' + Arena.increment++
 
             this.bots.push(bot);
             return true;
