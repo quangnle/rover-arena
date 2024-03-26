@@ -52,10 +52,21 @@ function draw(){
     arena.draw();
 }
 
-function next(){
-    if (!arena.stillCanPlay()) {
-        alert(`Game over! ${arena.bots[0].name} : ${arena.bots[0].score};   ${arena.bots[1].name} : ${arena.bots[1].score}`);
-    } else {        
-        arena.nextMove();
-    }
+function next() {
+  if (!arena.stillCanPlay()) {
+    alert(
+      `Game over! ${arena.bots[0].name} : ${arena.bots[0].score};   ${arena.bots[1].name} : ${arena.bots[1].score}`
+    )
+    return false
+  } else {
+    arena.nextMove()
+    return true
+  }
 }
+
+async function run() {
+  while (next()) {
+    await new Promise((r) => setTimeout(r, 100))
+  }
+}
+
