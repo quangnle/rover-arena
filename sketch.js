@@ -27,8 +27,7 @@ function generateDiamonds(mapData, nDiamonds){
         let row = Math.floor(Math.random() * mapData.nRows);
         let col = Math.floor(Math.random() * mapData.nCols);
         if (row != centerRow && col != centerCol && 
-            row != mapData.startPoints[0].row && col != mapData.startPoints[0].col && 
-            row != mapData.startPoints[1].row && col != mapData.startPoints[1].col){
+            !mapData.startPoints.some(point => point.row === row && point.col === col)) {
             addOneDiamond(mapData, row, col);
             countDiamonds++;
         }
