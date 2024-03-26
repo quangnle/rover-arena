@@ -4,7 +4,7 @@ const mapData = {
     diamonds: [],
     startPoints: [{col: 0, row: 0, color:"#f00"}, {col: 20, row: 20, color: "#00f"}]
 };
-const cellSize = 35;
+const cellSize = 40;
 const arena = new Arena(mapData, cellSize);
 
 function addOneDiamond(mapData, row, col){
@@ -22,12 +22,17 @@ function generateDiamonds(mapData, nDiamonds){
     let centerCol = mapData.nCols >> 1;
     mapData.diamonds.push({row: centerRow, col: centerCol});
 
-    for(let i = 0; i < nDiamonds; i++){
+    let countDiamonds = 0;
+    while (countDiamonds < nDiamonds){
         let row = Math.floor(Math.random() * mapData.nRows);
         let col = Math.floor(Math.random() * mapData.nCols);
-        addOneDiamond(mapData, row, col);
+        if (row != centerRow && col != centerCol && 
+            row != mapData.startPoints[0].row && col != mapData.startPoints[0].col && 
+            row != mapData.startPoints[1].row && col != mapData.startPoints[1].col){
+            addOneDiamond(mapData, row, col);
+            countDiamonds++;
+        }
     }
-
 }
 
 function setup(){

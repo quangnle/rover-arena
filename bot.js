@@ -1,21 +1,21 @@
 class Bot {
-  constructor(name, size = 0){
-    this.name = name;
-    this.alive = true;
-    this.score = 0;
-  }
+    constructor(name, size = 0){
+        this.name = name;
+        this.alive = true;
+        this.score = 0;
+    }
 
-  getNextMove(mapData){
-    // no processing yet! need to be  implemented!
-    return {col: this.col, row: this.row}
-  }
+    getNextMove(mapData){
+        // no processing yet! need to be  implemented!
+        return {col: this.col, row: this.row}
+    }
 
-  draw() {
-    const cellSize = this.size;
-        
+    draw() {
+        const cellSize = this.size;
+            
         push();
         translate(this.col * cellSize + (cellSize >> 1),this.row * cellSize + (cellSize >> 1));
-        
+
         //draw the face
         fill(this.color);
         rect(-cellSize/4, -cellSize/4, cellSize/2, cellSize/2, 3);
@@ -39,8 +39,8 @@ class Bot {
         //draw the name
         fill(this.color);
         textAlign(CENTER);
-        textSize(8);        
+        textSize(cellSize/4);
         text(this.name[0] + (this.name[1] || '') + (this.name[2] || ''), 0, cellSize/4 + 8);
         pop();
-  }
+    }
 }

@@ -63,7 +63,7 @@ class StupidBot{
         //draw the name
         fill(this.color);
         textAlign(CENTER);
-        textSize(8);        
+        textSize(cellSize/4);
         text(this.name[0] + (this.name[1] || '') + (this.name[2] || ''), 0, cellSize/4 + 8);
         pop();
     }
