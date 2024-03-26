@@ -10,12 +10,12 @@ class StupidBot{
     /// Greedy and empty brained thinking :)
     /// Simply move to the nearest diamond
     /// </summary>
-    getNextMove(mapData, bots){      
+    getNextMove(map, bots){      
         // find the nearest diamond by calculating the distance of the bot to each diamond
         let nearestDiamond = {col: -1, row: -1};
-        let minDistance = mapData.nCols + mapData.nRows;        
-        for (let i = 0; i < mapData.diamonds.length; i++){
-            const diamond = mapData.diamonds[i];
+        let minDistance = map.nCols + map.nRows;        
+        for (let i = 0; i < map.diamonds.length; i++){
+            const diamond = map.diamonds[i];
             if (diamond.col == -1) continue;
 
             const distance = Math.abs(this.col - diamond.col) + Math.abs(this.row - diamond.row);
