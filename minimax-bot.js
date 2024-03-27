@@ -4,11 +4,6 @@ class Node {
         this.bots = JSON.parse(JSON.stringify(bots));
         this.player = this.bots.find(bot => bot.name == player.name);
         this.children = [];
-        //this.score = this.evaluate();
-    }
-
-    displayStr(){
-        return `Player: ${this.player.name}, Score: ${this.player.score}, Row: ${this.player.row}, Col: ${this.player.col}`;
     }
 
     evaluate(){
@@ -129,15 +124,12 @@ class MinimaxBot {
         node.generateChildren();
         node.children.forEach(child => {
             const score = this.findBestMove(child, 5, false);
-            child.score = score;
+            //child.score = score;
             if (score > bestScore) {
                 bestScore = score;
                 move = {col: child.player.col, row: child.player.row};
             }
-            console.log(child.displayStr());
         });
-        
-
         return move;
     }
 
