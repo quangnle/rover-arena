@@ -5,7 +5,7 @@ class Bot {
         this.score = 0;
     }
 
-    getNextMove(mapData){
+    getNextMove(mapData, bots){
         // no processing yet! need to be  implemented!
         return {col: this.col, row: this.row}
     }

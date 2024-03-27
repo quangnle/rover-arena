@@ -37,7 +37,7 @@ function generateDiamonds(mapData, nDiamonds){
 function setup(){
     const canvas = document.getElementById("canvasArena");
     createCanvas(cellSize * mapData.nCols, cellSize * mapData.nCols, canvas);
-    const bot1 = new Bot("TempBot");
+    const bot1 = new MinimaxBot();
     const bot2 = new StupidBot();
 
     arena.addBot(bot1);
