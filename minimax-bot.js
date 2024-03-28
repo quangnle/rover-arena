@@ -1,7 +1,24 @@
+const cloneMap = (mapData) => {
+    // console.log('mapData', mapData)
+    const newMap = {...mapData, diamonds: []}
+    for (let i = 0; i < mapData.diamonds.length; i++) {
+        newMap.diamonds.push(mapData.diamonds[i])
+    }
+    // console.log('newMap', newMap)
+    return newMap
+  }
+
+  const  cloneBots = (bots) => {
+    const players = bots.map(b => {
+        return { ...b }
+    } )
+    return players
+  }
+
 class Node {
     constructor(mapData, bots, player){
-        this.mapData = JSON.parse(JSON.stringify(mapData));
-        this.bots = JSON.parse(JSON.stringify(bots));
+        this.mapData = cloneMap(mapData)
+        this.bots = cloneBots(bots)
         this.player = this.bots.find(bot => bot.name == player.name);
         this.children = [];
     }
@@ -16,15 +33,17 @@ class Node {
             if (diamond.col == -1) return;
             playerDistance += Math.abs(diamond.row - this.player.row) + Math.abs(diamond.col - this.player.col);
             botDistance += Math.abs(diamond.row - bot.row) + Math.abs(diamond.col - bot.col);
-        });
+        })
 
         // Calculate the score
-        return (this.player.score - bot.score) + (playerDistance / botDistance);
+        return (this.player.score - bot.score) * 5 + botDistance / playerDistance
     }
 
     makeAMove(mapData, bots, player, move){
-        const clonedMapData = JSON.parse(JSON.stringify(mapData));
-        const clonedBots = JSON.parse(JSON.stringify(bots));
+        // this.mapData = cloneMap(mapData)
+        // this.bots = cloneBots(bots)
+        const clonedMapData = cloneMap(mapData);
+        const clonedBots = cloneBots(bots);
         const clonedPlayer = clonedBots.find(bot => bot.name == player.name);
         
         // check the move is valid or not
@@ -92,7 +111,7 @@ class MinimaxBot {
      * @returns - The evaluation score of the best move.
      */
     findBestMove(node, depth, maximizingPlayer) {
-        if (depth == 0 || node.bots.find(bot => bot.alive == false)) {
+        if (depth == 0 || node.bots.some(bot => bot.alive == false)) {
             return node.evaluate();
         }
 
@@ -123,7 +142,7 @@ class MinimaxBot {
 
         node.generateChildren();
         node.children.forEach(child => {
-            const score = this.findBestMove(child, 5, false);
+            const score = this.findBestMove(child, 6, false);
             //child.score = score;
             if (score > bestScore) {
                 bestScore = score;
