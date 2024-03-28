@@ -1,4 +1,5 @@
 class Arena {
+    static increment = 0
     constructor(mapData, cellSize){
         this.mapData = mapData;
         this.cellSize = cellSize;
@@ -13,6 +14,7 @@ class Arena {
             bot.row = this.mapData.startPoints[this.bots.length].row;
             bot.color = this.mapData.startPoints[this.bots.length].color; 
             bot.size = this.cellSize;
+            bot.name = bot.name + '#' + Arena.increment++
 
             this.bots.push(bot);
             return true;
@@ -44,10 +46,10 @@ class Arena {
         this.bots.forEach(bot => {
             if (!bot.alive) return
             const jsonMapData = JSON.stringify(this.mapData)
-            const clondeMap = JSON.parse(jsonMapData)
+            const clonedMap = JSON.parse(jsonMapData)
             const jsonBotData = JSON.stringify(this.bots)
             const clonedBots = JSON.parse(jsonBotData)
-            const move = bot.getNextMove(clondeMap, clonedBots);
+            const move = bot.getNextMove(clonedMap, clonedBots);
             // check the move is valid or not
             if (Math.abs(move.col - bot.col) + Math.abs(move.row - bot.row) > 1) return;
 
@@ -93,11 +95,21 @@ class Arena {
                 rect(col *this.cellSize, row * this.cellSize, this.cellSize, this.cellSize);
             }
         }
-
+        
         // draw the diamonds
         this.mapData.diamonds.forEach(diamond => {
-            fill("#99f");
-            ellipse(diamond.col * this.cellSize + (this.cellSize >> 1), diamond.row * this.cellSize + (this.cellSize >> 1), this.cellSize >> 1, this.cellSize >> 1);
+            if (diamond.row != -1 && diamond.col != -1) { // only draw the diamond if it's not collected yet
+                fill("#99f");
+                const offset = this.cellSize * 0.1; // 10% offset for each side, total 20% for width and height
+                const diamondSize = this.cellSize * 0.8; // 80% of the cell size
+
+                beginShape();
+                vertex(diamond.col * this.cellSize + this.cellSize / 2, diamond.row * this.cellSize + offset);
+                vertex(diamond.col * this.cellSize + this.cellSize - offset, diamond.row * this.cellSize + diamondSize / 2 + offset);
+                vertex(diamond.col * this.cellSize + this.cellSize / 2, diamond.row * this.cellSize + diamondSize + offset);
+                vertex(diamond.col * this.cellSize + offset, diamond.row * this.cellSize + diamondSize / 2 + offset);
+                endShape(CLOSE);
+            }
         });
 
         // draw bots 
