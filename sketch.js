@@ -39,8 +39,8 @@ function setup(){
     const bot1 = new Bot("A");
     const bot2 = new StupidBot();
 
-    arena.addBot(bot1);
-    arena.addBot(bot2);
+    arena.addBot(bot2)
+    arena.addBot(bot1)
 
     generateDiamonds(mapData, 10);
 
