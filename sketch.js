@@ -37,11 +37,12 @@ function generateDiamonds(mapData, nDiamonds){
 function setup(){
     const canvas = document.getElementById("canvasArena");
     createCanvas(cellSize * mapData.nCols, cellSize * mapData.nCols, canvas);
-    const bot1 = new MinimaxBot();
+    // const bot1 = new MinimaxBot();
+    const bot1 = new StupidBotS("S");
     const bot2 = new StupidBot();
 
-    arena.addBot(bot1);
-    arena.addBot(bot2);
+    arena.addBot(bot1)
+    arena.addBot(bot2)
 
     generateDiamonds(mapData, 10);
     updateInforPanel();
@@ -63,11 +64,22 @@ function updateInforPanel(){
 }
 
 
-function next(){
+// function next(){
+//     updateInforPanel();
+//     if (!arena.stillCanPlay()) {
+//         alert(`Game over! ${arena.bots[0].name} : ${arena.bots[0].score};   ${arena.bots[1].name} : ${arena.bots[1].score}`);
+//     } else {        
+//         arena.nextMove();
+//     }
+// }
+
+async function next() {
+  while (arena.stillCanPlay()) {
+    arena.nextMove()
     updateInforPanel();
-    if (!arena.stillCanPlay()) {
-        alert(`Game over! ${arena.bots[0].name} : ${arena.bots[0].score};   ${arena.bots[1].name} : ${arena.bots[1].score}`);
-    } else {        
-        arena.nextMove();
-    }
+    await new Promise((r) => setTimeout(r, 100))
+  }
+  alert(
+    `Game over! ${arena.bots[0].name} : ${arena.bots[0].score};   ${arena.bots[1].name} : ${arena.bots[1].score}`
+  )
 }
