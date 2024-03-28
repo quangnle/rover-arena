@@ -67,7 +67,6 @@ class StupidBotS {
     let minDistance = 10e8
     const diamondRanges = this.getDiamondRanges(mapData.diamonds, stupidBot)
     const centerDiamond = this.getCenterDiamond(mapData.diamonds, diamondRanges)
-    console.log('🚀 ~ StupidBotS ~ getNextMove ~ centerDiamond:', centerDiamond)
     for (let i = 0; i < mapData.diamonds.length; i++) {
       const diamond = mapData.diamonds[i]
       if (diamond.col == -1) continue
@@ -80,14 +79,16 @@ class StupidBotS {
       const stupidBotRange =
         Math.abs(diamond.col - stupidBot.col) +
         Math.abs(diamond.row - stupidBot.row)
-      const stupidbotSRange =
-        Math.abs(diamond.col - this.col) + Math.abs(diamond.row - this.row)
-
       let nearestDiamondRange =
         Math.abs(this.col - diamond.col) + Math.abs(this.row - diamond.row)
-      // if (Math.abs(stupidbotSRange - stupidBotRange) < 3) {
-      //   nearestDiamondRange += stupidbotSRange < stupidBotRange ? -10e8 : 10e8
-      // }
+      if (
+        nearestDiamondRange < 4 &&
+        stupidBotRange < 4 &&
+        Math.abs(nearestDiamondRange - stupidBotRange) < 4
+      ) {
+        nearestDiamondRange +=
+          nearestDiamondRange < stupidBotRange ? -10e8 : 10e8
+      }
       const distance =
         nearestDiamondRange * 1.5 +
         diamondRange * 0.01 +
